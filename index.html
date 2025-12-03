@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOUFIT</title>
+
+    <!--CSS 불러오기-->
     <link rel="stylesheet" href="css/landing_page.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/fitcheck.css" />
 
     <!--jQuery 불러오기-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -16,35 +20,12 @@
     <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
-    <header class="site-header" role="banner" id="top">
-        <nav class="gnb" aria-label="Primary">
-        <div class="gnb__inner container">
-            <a href="#top" class="logo" aria-label="HOUFIT Home">
-                <img src="/assets/img/logo.png" alt="HOUFIT" />
-            </a>
-
-            
-
-            <ul class="gnb__menu">
-                <li><a href="#problem">PROBLEM</a></li>
-                <li><a href="#solution">SOLUTION</a></li>
-                <li><a href="#feature">FEATURE</a></li>
-                <li><a href="#why">WHY</a></li>
-                <li><a href="#apply">APPLY</a></li>
-            </ul>
-        </div>
-        </nav>
-    </header>
-
-    <!-- 헤더 보이는지 체크용 센티넬 -->
-    <div id="nav-sentinel" aria-hidden="true"></div>
-
-    <!-- 헤더 안 보이면 나타나는 고정 상단바 -->
-    <nav class="floating-nav" aria-label="Sticky">
-        <div class="floating-inner container">
-            <a href="#top" class="floating-logo">
+    <nav class="header" aria-label="Sticky">
+        <div class="header-inner container">
+            <a href="#top" class="header-logo">
                 <img
                     src="assets/img/logo.png"
                     srcset="assets/img/logo.png 1x, assets/img/logo.png 2x"
@@ -53,106 +34,75 @@
                     decoding="async"
                 />
             </a>
-            <ul class="floating-menu">
-            <li><a href="#problem">PROBLEM</a></li>
-            <li><a href="#solution">SOLUTION</a></li>
-            <li><a href="#feature">FEATURE</a></li>
-            <li><a href="#why">WHY</a></li>
-            <li><a href="#apply">APPLY</a></li>
+            <ul class="header-menu">
+            <li><a href="#fitcheck">FIT CHECK</a></li>
+            <li><a href="#manual">MANUAL</a></li>
+            <li><a href="#review">REVIEW</a></li>
             </ul>
         </div>
     </nav>
 
-    <section id="problem" class="section-bubbles" aria-labelledby="bubbles-title">
-        <h2 id="bubbles-title" class="sr-only">고민 말풍선</h2>
-
-        <div class="bubbles-stage">
-            <!-- 말풍선 1 -->
-            <img
-            class="bubble-img reveal"
-            src="assets/img/bubble1.png"
-            alt="막상 내가 입으니 그 핏이 안 사네"
-            style="--x: -230px; --y: -50px; --w:250px; --delay: 0ms;"
-            />
-
-            <!-- 말풍선 2-->
-            <img
-            class="bubble-img reveal"
-            src="assets/img/bubble2.png"
-            alt="내 체형에 맞을까?"
-            style="--x: 0px; --y: -130px; --w:200px; --delay: 200ms;"
-            />
-
-            <!-- 말풍선 3-->
-            <img
-            class="bubble-img reveal"
-            src="assets/img/bubble3.png"
-            alt="핏을 예상하기가 쉽지 않아"
-            style="--x: 230px; --y: -50px; --w:280px; --delay: 400ms;"
-            />
-
-            <!-- 소년 -->
-            <img class="boy" src="/assets/img/boy.png" alt="소년" />
+    <section id="fit-check" class="section-fit-check">
+       <div id="viewer">
+        <div id="gender-select">
+            <button data-gender="female" class="active">여성</button>
+            <button data-gender="male">남성</button>
         </div>
+       </div>
 
-        <div class="problem-line">
-            <p class="headline fade-up reveal-up">
-                이런 고민을 해 본 적이 있으시다구요?
-            </p>
-        </div>
-    </section>
+        <div class="fit-panel">
 
-    <section id="solution" class="section-solution" aria-labelledby="solution-title">
-        <h2 id="solution-title" class="sr-only">해결 방법</h2>
+            <div class="panel-card">
+                <div class="side-tabs">
+                    <button class="tab active">체형조절</button>
+                    <button class="tab">입어보기</button>
+                </div>
+                <div class="type-selector">
+                    <button class="active">Natural</button>
+                    <button>Straight</button>
+                    <button>Wave</button>
+                </div>
 
-        <div class="solution-wrap">
-            <!-- 블록 1 -->
-            <p class="solution-lead">온라인 쇼핑의 가장 큰 불안,</p>
-            <p class="solution-quote">“나한테 맞을까?”</p>
-            <p class="solution-text">이제 고민하지 말고 입어보십시오!</p>
+                <div class="sliders">
+                    <div class="slider-row">
+                        <label>목</label>
+                        <input type="range" id="neck" min="-0.5" max="1" step="0.01" value="0">
+                    </div>
+                    <div class="slider-row">
+                        <label>어깨</label>
+                        <input type="range" id="shoulder" min="-0.5" max="1.5" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>가슴</label>
+                        <input type="range" id="bust" min="-1.0" max="1.5" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>팔</label>
+                        <input type="range" id="arm" min="-1.5" max="1.5" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>허리</label>
+                        <input type="range" id="waist" min="-1.0" max="1.0" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>골반</label>
+                        <input type="range" id="pelvis" min="-1.0" max="2.0" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>다리</label>
+                        <input type="range" id="leg" min="-0.3" max="1.5" step="0.01" value="1">
+                    </div>
+                </div>
+            </div>
 
-            <!-- 블록 2 -->
-            <p class="solution-lead">내 체형에 맞춘 가상 피팅 서비스</p>
-            <p class="solution-brand">하우핏으로,</p>
-            <p class="solution-text">사이즈와 핏을 정확히 확인해보세요!</p>
-        </div>
-    </section>
-
-    <section id="feature" class="section-feature" aria-labelledby="feature-title">
-        <h2 id="feature title" class="sr-only">하우핏 사용 방법</h2>
-
-        <div class="feature-wrap">
-            <p class="feature-kicker">하우핏?</p>
-            <h3 class="feature-title">이렇게 간단해요!</h3>
-
-            <!-- 예시 -->
-            <img class="feature-example" src="/assets/img/example.png" alt="예시" />
-            
-            <ol class="feature-steps">
-                <li class="reveal-up" style="--delay:0ms;">내 체형 선택</li>
-                <li class="reveal-up" style="--delay:200ms;">옷 선택</li>
-                <li class="reveal-up" style="--delay:400ms;">가상 피팅 결과 보기</li>
-            </ol>
-
-            <p class="feature-cta">
-            “이 코디는 나에게 어떤 느낌일까?”<br />
-            직접 눈으로 확인해보세요!
-            </p>
         </div>
     </section>
 
-    <section id="why" class="section-why" aria-labelledby="why-title">
-        <h2 id="why title" class="sr-only">하우핏이 필요한 이유</h2>
-        <div class="why-wrap">
-            <p class="why-cta">
-            “하우핏은”<br />
-            "온라인 쇼핑러들의 만족도를 높이는 것과"<br />
-            "반품률 감소를 통한 자원 절약을 목표로"<br />
-            "만들어졌습니다."
-        </div>
+    <section id="manual" class="section-ㅡmanual">
+        
     </section>
 
-    <section id="apply" class="section-apply" aria-labelledby="apply-title">
+    <section id="review" class="section-review">
         <h2 id="apply__title">하우핏 사전신청하기</h2>
 
         <form class="apply__form" onsubmit="return false">
@@ -182,154 +132,19 @@
         </div>
     </section>
 
-    <!--DB-->
+    <!--js-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="application/javascript">
-        var ip = "null";
-        function getIP(json) {
-            console.log(json);
-            try {
-                ip = json.ip;
-            } catch (e) {
-                ip = 'unknown';
-            }
-            return;
-        }
-    </script>
+    <script src="js/DB.js"></script>
     <script type="application/javascript" src="https://jsonip.com?format=jsonp&callback=getIP"></script>
-
-    <script>
-    
-        // Device
-        var mobile = 'desktop';
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            // true for mobile device
-            mobile = 'mobile';
-        }
-			
-        // UTM
-        var queryString = location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const utm = urlParams.get("utm")
-        
-        // Sam pading value to start with 0. eg: 01, 02, .. 09, 10, ..
-        function padValue(value) {
-            return (value < 10) ? "0" + value : value;
-        }
-
-        function getTimeStamp() {
-            const date = new Date();
-
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
-            const seconds = date.getSeconds();
-
-            const formattedDate = `${padValue(year)}-${padValue(month)}-${padValue(day)} ${padValue(hours)}:${padValue(minutes)}:${padValue(seconds)}`;
-
-            return formattedDate;
-        }
-
-        // 쿠키에서 값을 가져오는 함수
-        function getCookieValue(name) {
-            const value = "; " + document.cookie;
-            const parts = value.split("; " + name + "=");
-            if (parts.length === 2) {
-                return parts.pop().split(";").shift();
-            }
-        }
-
-        // 쿠키에 값을 저장하는 함수
-        function setCookieValue(name, value, days) {
-            let expires = "";
-            if (days) {
-                const date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getUVfromCookie() {
-            // 6자리 임의의 문자열 생성
-            const hash = Math.random().toString(36).substring(2, 8).toUpperCase();
-            // 쿠키에서 기존 해시 값을 가져옴
-            const existingHash = getCookieValue("user");
-            // 기존 해시 값이 없으면, 새로운 해시 값을 쿠키에 저장
-            if (!existingHash) {
-                setCookieValue("user", hash, 180); // 쿠키 만료일은 6개월 
-                return hash;
-            } else {
-                // 기존 해시 값이 있으면, 기존 값을 반환
-                return existingHash;
-            }
-        }
-
-        var data = JSON.stringify({
-            "id": getUVfromCookie(),
-            "landingUrl":window.location.href, // 내 사이트 중 어떤 페이지에 들어왔는지 알 수 있음
-            "ip":ip, 
-            "referer":document.referrer, 
-            "time_stamp":getTimeStamp(),
-            "utm":utm,
-            "device":mobile}
-        );
-
-        $(document).ready(function () {
-
-            addrScript = 'https://script.google.com/macros/s/AKfycbzEAcd1aoa333KQSB2orgxTy_bJvAOMPprh3CHBa_YbdUpZls5puia5a1sGiZ4XNpIp/exec';
-
-            $.ajax({
-                url: addrScript+'?action=insert&table=visitors&data='+data,
-                dataType: 'jsonp',
-                success: function (data) {
-                console.log('성공 - ', JSON.stringify(data));
-                },
-                error: function (xhr) {
-                console.log('실패 - ', JSON.stringify(xhr));
-                }
-            });
-
-            $("#submit").on("click", function () {
-                const email = $("#submit-email").val();
-                const advice = $("#submit-advice").val();
-
-                function validateEmail(email) {
-                    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-                    return re.test(email);
-                }
-
-                if (email == '' || !validateEmail(email)) {
-                    alert("이메일이 유효하지 않아 알림을 드릴 수가 없습니다. ");
-                    return;
-                }
-
-                var finalData = JSON.stringify({
-                    "id": getUVfromCookie(),
-                    "email": email,
-                    "advice": advice
-                })
-
-                $.busyLoadFull("show");
-                axios.get(addrScript + '?action=insert&table=tab_final&data='+ finalData)
-                    .then(response => {
-                    console.log(response.data.data);
-                    // alert(JSON.stringify(response));
-                    $('#submit-email').val('');
-                    $('#submit-advice').val('');
-                    $.busyLoadFull("hide");
-                    openPopup();
-                })
-            });
-        });
-
-    </script>  
-    <!-- 페이지 하단에 JS 로드 -->
-    <script src="js/landing_page.js" defer></script>
-
-    <!-- 인스타 인앱 브라우저 대비 전용 로거 -->
+    <script src="js/popup.js" defer></script>
     <script src="js/instagram.js" defer></script>
+
+    <!-- Three.js r146 (전역 THREE 방식) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- 네 코드 -->
+    <script src="js/fitcheck.js"></script>
 </body>
 </html>

@@ -1,0 +1,74 @@
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  z-index: 100;
+  backdrop-filter: saturate(120%) blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  transition: none;
+}
+
+.header-inner{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.header-logo{
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.header-logo img {
+  display: block;
+  width: clamp(50px, 6vw, 160px); /* 반응형 */
+  height: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.header-menu{
+  display: flex;
+  gap: clamp(3px, 1vw, 28px);
+  list-style: none;
+  margin: 0; padding: 0;
+}
+
+.header-menu a{
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: clamp(8px, 4vw, 16px);
+  font-weight: 600;
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s ease;
+}
+
+.header-menu a:hover{ border-bottom-color: var(--text-color); }
+
+@media (max-width: 512px) {
+  .header-inner {
+    justify-content: center; /* 왼쪽 정렬 → 가운데 정렬 */
+    gap: clamp(4px, 1vw, 10px);
+    flex-wrap: wrap;          /* 로고 / 메뉴가 위아래로 자연스럽게 개행 */
+    text-align: center;       /* 내부 인라인 요소도 중앙 정렬 */
+  }
+  .header-logo {
+    flex: 0 0 auto;           /* 로고 크기 유지 */
+    order: 0;
+  }
+  .header-menu {
+    flex: 1 1 100%;           /* 한 줄 전체를 차지해서 중앙에 배치 */
+    justify-content: center;  /* 메뉴 아이템 중앙 정렬 */
+    gap: clamp(6px, 2vw, 20px);
+    margin: 0; padding: 0;
+  }
+  .header-menu li { list-style: none; }
+}
