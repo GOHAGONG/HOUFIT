@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOUFIT</title>
+
+    <!--CSS 불러오기-->
+    <link rel="stylesheet" href="css/landing_page.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/fitcheck.css" />
+
+    <!--jQuery 불러오기-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    
+    <!--제출 로딩 & 팝업-->
+    <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <nav class="header" aria-label="Sticky">
+        <div class="header-inner container">
+            <a href="#top" class="header-logo">
+                <img
+                    src="assets/img/logo.png"
+                    srcset="assets/img/logo.png 1x, assets/img/logo.png 2x"
+                    alt="HOUFIT"
+                    loading="eager"
+                    decoding="async"
+                />
+            </a>
+            <ul class="header-menu">
+            <li><a href="#fitcheck">FIT CHECK</a></li>
+            <li><a href="#manual">MANUAL</a></li>
+            <li><a href="#review">REVIEW</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="fit-check" class="section-fit-check">
+       <div id="viewer">
+       </div>
+
+        <div class="fit-panel">
+
+            <div class="panel-card">
+                <div class="side-tabs">
+                    <button class="tab active">체형조절</button>
+                    <button class="tab">입어보기</button>
+                </div>
+
+                <div id="gender-select">
+                    <button data-gender="female" class="active">여성</button>
+                    <button data-gender="male">남성</button>
+                </div>
+
+                <div class="sliders">
+                    <div class="slider-row">
+                        <label>목</label>
+                        <input type="range" id="neck" min="-0.5" max="1" step="0.01" value="0">
+                    </div>
+                    <div class="slider-row">
+                        <label>어깨</label>
+                        <input type="range" id="shoulder" min="-0.5" max="1.5" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>가슴</label>
+                        <input type="range" id="bust" min="-1.0" max="1.5" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>팔</label>
+                        <input type="range" id="arm" min="-1.5" max="1.5" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>허리</label>
+                        <input type="range" id="waist" min="-1.0" max="1.0" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>골반</label>
+                        <input type="range" id="pelvis" min="-1.0" max="2.0" step="0.01" value="1">
+                    </div>
+                    <div class="slider-row">
+                        <label>다리</label>
+                        <input type="range" id="leg" min="-0.3" max="1.5" step="0.01" value="1">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="manual" class="section-ㅡmanual">
+        
+    </section>
+
+    <section id="review" class="section-review">
+        <h2 id="apply__title">하우핏 사전신청하기</h2>
+
+        <form class="apply__form" onsubmit="return false">
+            <p>이메일을 남겨주시면 서비스가 런칭되었을 때 알림을 드리겠습니다.<br>
+            이메일을 남겨주신 분께, 추첨을 통해 세 분께 네이버페이 상품권을 드립니다.</p>
+            <input id="submit-email"
+                type="email"
+                placeholder="알림을 받으실 이메일"
+                required
+                autocomplete="email" />
+
+            <p>서비스가 이렇게 되었으면 좋겠다는 조언을 해 주세요</p>
+            <textarea id="submit-advice"
+                name="Text1"
+                cols="40"
+                rows="5"
+                placeholder="서비스에 대한 조언을 남겨주세요 (선택사항)"></textarea>
+
+            <button id="submit" class="apply__button" type="button">지금 제출!</button>
+        </form>
+
+        <div id="popup" hidden>
+            <div class="popup-card">
+                <h3>감사합니다.</h3>
+                <p>개인정보는 정식 출시가 될 경우 알림 제공과 추첨을 통한 보상 제공으로만 이용되며,<br>3개월 이내로 출시되지 않을 경우 자동 삭제됨을 알려드립니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--js-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/DB.js"></script>
+    <script type="application/javascript" src="https://jsonip.com?format=jsonp&callback=getIP"></script>
+    <script src="js/popup.js" defer></script>
+    <script src="js/instagram.js" defer></script>
+
+    <!-- Three.js r146 (전역 THREE 방식) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- 네 코드 -->
+    <script src="js/fitcheck.js"></script>
+</body>
+</html>
