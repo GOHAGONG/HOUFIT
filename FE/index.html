@@ -43,8 +43,15 @@
     </nav>
 
     <section id="fit-check" class="section-fit-check">
-       <div id="viewer">
-       </div>
+       <div id="viewer"></div>
+
+       <div id="result-container" style="margin-top: 20px;">
+            <!-- <h3>가상 착용 결과</h3> -->
+            <div id="image-comparison-wrapper" style="position: relative; width: 500px; height: 500px; margin: 0 auto;">
+                <img id="original-model-img" src="" alt="원본 모델" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+                <img id="tryon-result-img" src="" alt="AI 착용 결과" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+                </div>
+        </div>
 
         <div class="fit-panel">
 
@@ -89,6 +96,24 @@
                         <input type="range" id="leg" min="-0.3" max="1.5" step="0.01" value="1">
                     </div>
                 </div>
+
+                <div id="try-on-controls" style="display: none;"> 
+    
+                    <h3 style="margin-top: 0;">착용 정보</h3>
+                    <p style="font-size: 0.9em; color: #555;">조절된 체형의 3D 모델을 기반으로 이미지를 합성합니다.</p>
+
+                    <label for="clothingFile" style="display: block; margin-bottom: 5px; font-weight: bold;">[2] 옷 이미지 선택</label>
+                    <input type="file" id="clothingFile" accept="image/*" style="width: 100%; margin-bottom: 10px;">
+                    
+                    <label for="promptInput" style="display: block; margin-bottom: 5px; font-weight: bold;">[3] 추가 프롬프트</label>
+                    <textarea id="promptInput" rows="2" placeholder="예: '배경을 도시 거리로 바꿔줘' 또는 '주름을 더 자연스럽게 해줘'" style="width: 100%; border: 1px solid #ddd; padding: 5px; border-radius: 4px;"></textarea>
+
+                    <hr style="margin: 15px 0;">
+
+                    <button id="requestTryOnButton" style="width: 100%; padding: 10px; font-weight: bold;">가상 착용 이미지 생성</button>
+
+                </div>
+
             </div>
 
         </div>
@@ -140,7 +165,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
 
-    <!-- 네 코드 -->
+    <!-- fit-check -->
     <script src="js/fitcheck.js"></script>
 </body>
 </html>
