@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/landing_page.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/fitcheck.css" />
+    <link rel="stylesheet" href="css/manual.css" />
 
     <!--jQuery 불러오기-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -35,7 +36,7 @@
                 />
             </a>
             <ul class="header-menu">
-            <li><a href="#fitcheck">FIT CHECK</a></li>
+            <li><a href="#fit-check">FIT CHECK</a></li>
             <li><a href="#manual">MANUAL</a></li>
             <li><a href="#review">REVIEW</a></li>
             </ul>
@@ -43,14 +44,9 @@
     </nav>
 
     <section id="fit-check" class="section-fit-check">
-       <div id="viewer"></div>
-
-       <div id="result-container" style="margin-top: 20px;">
-            <!-- <h3>가상 착용 결과</h3> -->
-            <div id="image-comparison-wrapper" style="position: relative; width: 500px; height: 500px; margin: 0 auto;">
-                <img id="original-model-img" src="" alt="원본 모델" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
-                <img id="tryon-result-img" src="" alt="AI 착용 결과" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
-                </div>
+        <div id="viewer"></div>
+        <div id="image-comparison-wrapper">
+            <img id="tryon-result-img" src="" alt="AI 착용 결과">
         </div>
 
         <div class="fit-panel">
@@ -99,18 +95,13 @@
 
                 <div id="try-on-controls" style="display: none;"> 
     
-                    <h3 style="margin-top: 0;">착용 정보</h3>
-                    <p style="font-size: 0.9em; color: #555;">조절된 체형의 3D 모델을 기반으로 이미지를 합성합니다.</p>
+                    <h3>착용 정보</h3>
+                    <p>조절된 체형의 3D 모델을 기반으로 이미지를 합성합니다.</p>
 
-                    <label for="clothingFile" style="display: block; margin-bottom: 5px; font-weight: bold;">[2] 옷 이미지 선택</label>
-                    <input type="file" id="clothingFile" accept="image/*" style="width: 100%; margin-bottom: 10px;">
-                    
-                    <label for="promptInput" style="display: block; margin-bottom: 5px; font-weight: bold;">[3] 추가 프롬프트</label>
-                    <textarea id="promptInput" rows="2" placeholder="예: '배경을 도시 거리로 바꿔줘' 또는 '주름을 더 자연스럽게 해줘'" style="width: 100%; border: 1px solid #ddd; padding: 5px; border-radius: 4px;"></textarea>
+                    <label for="clothingFile">옷 이미지 선택</label>
+                    <input type="file" id="clothingFile" accept="image/*">
 
-                    <hr style="margin: 15px 0;">
-
-                    <button id="requestTryOnButton" style="width: 100%; padding: 10px; font-weight: bold;">가상 착용 이미지 생성</button>
+                    <button id="requestTryOnButton">가상 착용 이미지 생성</button>
 
                 </div>
 
@@ -120,15 +111,43 @@
     </section>
 
     <section id="manual" class="section-ㅡmanual">
-        
+        <h2 class="manual-title">하우핏 사용법</h2>
+
+        <div class="manual-flow">
+
+            <div class="manual-step">
+            <div class="bubble">
+                <span class="step-num">1</span>
+                <p>체형 조절 탭에서 원하는대로 체형을 조절해줍니다.</p>
+            </div>
+            </div>
+
+            <div class="manual-step">
+            <div class="bubble">
+                <span class="step-num">2</span>
+                <p>
+                입어보기 탭에서 원하는 옷의 사진을 업로드 합니다.<br>
+                <small>(누끼 따져 있는 옷만 있는 사진이어야 깔끔한 결과를 얻으실 수 있습니다.)</small>
+                </p>
+            </div>
+            </div>
+
+            <div class="manual-step">
+            <div class="bubble">
+                <span class="step-num">3</span>
+                <p>가상 피팅 결과를 얻습니다.</p>
+            </div>
+            </div>
+
+        </div>
     </section>
 
     <section id="review" class="section-review">
-        <h2 id="apply__title">하우핏 사전신청하기</h2>
+        <h2 id="apply__title">후기 작성하기</h2>
 
         <form class="apply__form" onsubmit="return false">
             <p>이메일을 남겨주시면 서비스가 런칭되었을 때 알림을 드리겠습니다.<br>
-            이메일을 남겨주신 분께, 추첨을 통해 세 분께 네이버페이 상품권을 드립니다.</p>
+            현재 하우핏은 데모 버전으로, 앞으로 더 발전할 수 있도록<br>소중한 후기 부탁드립니다!</p>
             <input id="submit-email"
                 type="email"
                 placeholder="알림을 받으실 이메일"
@@ -148,10 +167,19 @@
         <div id="popup" hidden>
             <div class="popup-card">
                 <h3>감사합니다.</h3>
-                <p>개인정보는 정식 출시가 될 경우 알림 제공과 추첨을 통한 보상 제공으로만 이용되며,<br>3개월 이내로 출시되지 않을 경우 자동 삭제됨을 알려드립니다.</p>
+                <p>개인정보는 정식 출시가 될 경우 알림 제공으로만 이용되며,<br>3개월 이내로 출시되지 않을 경우 자동 삭제됨을 알려드립니다.</p>
             </div>
         </div>
     </section>
+
+    <div id="credit-popup" class="popup-overlay" style="display:none;">
+        <div class="popup-box">
+            <h3>정식 버전 출시를 기다려주세요!</h3>
+            <p>현재 체험판에서는 더 이상 사용이 어렵습니다.</p>
+
+            <button id="go-review-btn">이용 후기 작성하기</button>
+        </div>
+    </div>
 
     <!--js-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

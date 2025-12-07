@@ -13,7 +13,10 @@ const FASHN_API_KEY = process.env.FASHN_API_KEY;
 const FASHN_MODEL_NAME = 'tryon-v1.6'; 
 
 const app = express();
-const port = 5500;
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 // Multer 설정: 메모리에 파일 버퍼로 저장
 const upload = multer({ storage: multer.memoryStorage() });
@@ -29,12 +32,6 @@ if (!FASHN_API_KEY) {
     process.exit(1); 
 }
 // --- 환경 변수 필수 확인 끝 ---
-
-
-// 서버 시작
-app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
-});
 
 /**
  * 이미지 버퍼와 MIME 타입을 받아 Base64 문자열 자체를 반환합니다.
@@ -52,7 +49,7 @@ function fileToBase64String(imageBuffer, mimeType) {
 /**
  * Fashn.ai API를 호출하여 최종 합성 이미지를 생성합니다. (비동기 폴링 로직 포함)
  */
-async function callFashnAPI(userPrompt, modelBase64, garmentBase64) {
+async function callFashnAPI(modelBase64, garmentBase64) {
     const requestBody = {
         model_name: FASHN_MODEL_NAME, // 'tryon-v1.6'
         inputs: {
@@ -161,11 +158,6 @@ app.post('/vto', upload.array('images', 2), async (req, res) => {
   // 1. 입력 데이터 추출
   const modelImage = req.files[0];
   const garmentImage = req.files[1];
-  const userPrompt = req.body.prompt || "Create a realistic virtual try-on image."; 
-  // Fashn.ai 모델은 프롬프트를 입력으로 사용하지 않을 수 있으나, 
-  // 여기서는 API 문서에 따라 inputs 필드만 전송합니다.
-
-  console.log(`[VTO] 요청 수신. 사용자 프롬프트: ${userPrompt}`);
 
   try {
     // 2. Base64 인코딩 (순수 문자열)
@@ -174,7 +166,7 @@ app.post('/vto', upload.array('images', 2), async (req, res) => {
 
     // 3. Fashn.ai API 호출 (폴링 포함)
     console.log('[VTO] Fashn.ai 합성 시작...');
-    const finalImageBase64 = await callFashnAPI(userPrompt, modelBase64, garmentBase64);
+    const finalImageBase64 = await callFashnAPI(modelBase64, garmentBase64);
     console.log('[VTO] Fashn.ai 합성 성공.');
 
     // 4. 최종 응답

@@ -23,7 +23,7 @@ const LIGHT_PRESET = {
 };
 
 //backend url node.js 서버 주소
-const BACKEND_URL = 'http://localhost:5500/vto';
+const BACKEND_URL = "https://virtual-tryon-api-706573101098.asia-northeast3.run.app/vto";
 
 // 1. Three.js 초기화
 function init3D() {
@@ -62,6 +62,7 @@ function init3D() {
 }
 
 function loadModel(gender) {
+    $.busyLoadFull('show', { text: 'GLTF 모델 로딩 중' });
     const path = MODEL_PATH[gender];
 
     if (model) {
@@ -82,7 +83,7 @@ function loadModel(gender) {
         model = gltf.scene;
 
         model.position.set(0, -1.0, 0);
-        model.scale.set(0.9, 0.9, 0.9);
+        model.scale.set(1, 1, 1);
 
         model.traverse((obj) => {
             if (obj.isMesh && obj.morphTargetInfluences) {
@@ -90,6 +91,7 @@ function loadModel(gender) {
             }
         });
 
+        $.busyLoadFull('hide')
         scene.add(model);
     });
 }
@@ -166,9 +168,7 @@ function captureModelCanvas() {
 // VTO 요청 처리 함수
 async function handleTryOnRequest() {
     const clothingFile = document.getElementById('clothingFile').files[0];
-    const promptInput = document.getElementById('promptInput').value.trim();
     const tryOnButton = document.getElementById('requestTryOnButton');
-    const originalImg = document.getElementById('original-model-img');
     const resultImg = document.getElementById('tryon-result-img');
     const messageP = document.getElementById('tryon-message');
     
@@ -192,13 +192,9 @@ async function handleTryOnRequest() {
     // 파일 2개를 'images' 필드에 순서대로 추가합니다.
     formData.append('images', modelFile, 'model.jpeg');   // 첫 번째 파일: 모델
     formData.append('images', clothingFile, 'garment.jpeg'); // 두 번째 파일: 옷
-    formData.append('prompt', promptInput || "첫 번째 모델에게 두 번째 옷을 입혀줘. 가장 현실적이고 주름이 살아있는 착용샷을 생성해.");
 
     // 캡처된 모델 이미지를 원본 비교 이미지로 설정
     const modelDataUrl = URL.createObjectURL(modelFile);
-    originalImg.src = modelDataUrl;
-    originalImg.style.display = 'block';
-    originalImg.style.opacity = 1;
     resultImg.style.opacity = 0;
     resultImg.style.display = 'none';
     $("#image-comparison-wrapper").css("opacity", 1);
@@ -223,7 +219,7 @@ async function handleTryOnRequest() {
             resultImg.src = `data:image/jpeg;base64,${data.finalImage}`;
             resultImg.style.display = 'block';
             resultImg.style.opacity = 1; // AI 결과 표시
-            // messageP.textContent = "✅ 가상 착용 이미지가 성공적으로 생성되었습니다.";
+            // messageP.textContent = "가상 착용 이미지가 성공적으로 생성되었습니다.";
         } else {
             throw new Error("API 응답에 이미지 데이터가 포함되어 있지 않습니다.");
         }
@@ -231,7 +227,7 @@ async function handleTryOnRequest() {
     } catch (error) { // <--- 누락된 catch 블록 시작
         const errorMessage = error.response ? error.response.data.error : error.message;
         console.error('가상 착용 요청 실패:', error);
-        // messageP.textContent = `❌ 요청 실패: ${errorMessage}. 콘솔을 확인하거나 GCP 설정을 점검해 주세요.`;
+        // messageP.textContent = `요청 실패: ${errorMessage}. 콘솔을 확인하거나 GCP 설정을 점검해 주세요.`;
         // 원본 이미지는 유지하고 결과 이미지는 숨김
         resultImg.style.opacity = 0;
         resultImg.style.display = 'none';
@@ -264,8 +260,55 @@ document.querySelectorAll("input[type=range]").forEach(slider => {
     });
 });
 
+/* ================================
+    CREDIT SYSTEM (Trial)
+================================ */
+
+let credit = 1;
+
+// 크레딧 차감 함수
+function useCredit() {
+    if (credit <= 0) return false; // 사용 불가
+    credit -= 1;
+    return true;
+}
+
+// "이용 후기 작성하기" 클릭 → review 섹션 이동
+$(document).on("click", "#go-review-btn", function () {
+    $("#credit-popup").hide();
+
+    const reviewSection = document.getElementById('review');
+
+    if (reviewSection) {
+        reviewSection.scrollIntoView({
+            behavior: 'smooth', // 부드러운 스크롤
+            block: 'start'      // 요소의 상단을 뷰포트 상단에 맞춥니다.
+        });
+        console.log('gi-to-review'); // 이 로그가 찍히는 부분일 것입니다.
+    } else {
+        console.error('리뷰 섹션 (ID: review)을 찾을 수 없습니다.');
+    }
+});
+
 // 가상 착용 버튼
-$("#requestTryOnButton").on("click", handleTryOnRequest);
+$("#requestTryOnButton").on("click", function () {
+
+    // 1. 크레딧 부족하면 팝업 띄우고 종료
+    if (credit <= 0) {
+        $("#credit-popup").css("display", "flex");
+        return;
+    }
+
+    // 2. 크레딧 차감
+    const ok = useCredit();
+    if (!ok) {
+        $("#credit-popup").css("display", "flex");
+        return;
+    }
+
+    // 3. 차감 성공 → 가상 착용 기능 실행
+    handleTryOnRequest();
+});
 
 // DOM Ready
 $(document).ready(function () {
@@ -297,3 +340,4 @@ $(document).ready(function () {
     $("#try-on-controls").hide();
 
 });
+

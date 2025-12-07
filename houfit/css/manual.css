@@ -1,0 +1,112 @@
+/* ===========================
+   MANUAL SECTION
+=========================== */
+.manual-section {
+  width: 100%;
+  padding: 120px 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.manual-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #304C29;
+  margin-bottom: 60px;
+}
+
+/* FLOW LAYOUT */
+.manual-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+/* Each step container */
+.manual-step {
+  position: relative;
+}
+
+/* Circle bubble */
+.bubble {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(5px);
+  border: 3px solid #566B50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform .2s ease;
+}
+
+.bubble:hover {
+  transform: translateY(-6px);
+}
+
+/* Step number badge */
+.step-num {
+  font-size: 26px;
+  color: #304C29;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* Lines (Flow arrows) */
+.manual-step::after {
+  content: "➜";
+  position: absolute;
+  top: 50%;
+  right: -55px;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: #8FA388;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+/* 마지막 단계는 화살표 제거 */
+.manual-step:last-child::after {
+  display: none;
+}
+
+/* ===========================
+   OVERLAP EFFECT (겹쳐보이기)
+=========================== */
+.manual-step:nth-child(2) .bubble {
+  margin-top: 40px;  /* 조금 내려감 */
+}
+
+.manual-step:nth-child(3) .bubble {
+  margin-top: -20px; /* 조금 올라감 */
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 800px) {
+  .manual-flow {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .manual-step::after {
+    display: none; /* 모바일에서는 화살표 제거 */
+  }
+
+  .bubble {
+    width: 180px;
+    height: 180px;
+  }
+
+}

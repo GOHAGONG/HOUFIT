@@ -21,36 +21,37 @@ body {
   background-size: cover;
 }
 
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 24px;
+@media (orientation: portrait) and (max-aspect-ratio: 1/1) {
+  body {
+    background: url('../assets/img/background_mobile.png') no-repeat center center fixed;
+    background-size: cover;
+  }
 }
 
-/*star*/
-/* .background {
-  position: absolute;
-  left: 50%;
-  bottom: 60px;
-  transform: translateX(-50%);
-  width: clamp(84px, 18vw, 120px);
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-} */
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0 24px;
+  display: flex;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 200px;
+}
 
 /* ===== APPLY ===== */
-.section-apply{
+.section-review{
   width: 100%;
   overflow-x: hidden;
   background: transparent;
-  padding: 60px 0;
   color: var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   margin: auto;
+  margin-bottom: 60px;
 }
 
 .section-apply h2{
@@ -72,7 +73,7 @@ body {
 }
 
 .apply__form > p{
-  font-size: clamp(7px, 2vw, 18px);
+  font-size: clamp(4px, 4vw, 10px);
   line-height: 1.7;
   opacity: .9;
 }
@@ -92,12 +93,12 @@ body {
 
 .apply__form input[type="email"]{
   border-radius: 999px;
-  font-size: clamp(8px, 4vw, 18px);
+  font-size: clamp(4px, 4vw, 10px);
 }
 
 .apply__form textarea{
   border-radius: 16px;
-  font-size: clamp(8px, 4vw, 18px);
+  font-size: clamp(4px, 4vw, 10px);
   resize: vertical;          /* 높이 조절 가능 */
   min-height: 120px;
 }
